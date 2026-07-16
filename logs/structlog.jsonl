@@ -1354,3 +1354,49 @@
 [2m2026-07-16 11:09:54[0m [[32m[1minfo     [0m] [1mnode_audit                    [0m
 [2m2026-07-16 11:09:54[0m [[32m[1minfo     [0m] [1mpipeline_completed            [0m [36mdecision[0m=[35mSTP[0m [36minvoice_id[0m=[35mINV-BFB161A9[0m
 [2m2026-07-16 11:09:54[0m [[32m[1minfo     [0m] [1maudit_record_saved            [0m [36mdecision[0m=[35mSTP[0m [36minvoice_id[0m=[35mINV-BFB161A9[0m [36mpath[0m=[35maudit\audit_log.jsonl[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mpipeline_started              [0m [36minvoice_id[0m=[35mINV-E9B2BC3E[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mnode_document_processing      [0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mdoc_processing_started        [0m [36mdoc_type[0m=[35minvoice[0m [36mfile[0m=[35minvoice1.txt[0m [36msize[0m=[35m203[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mdocument_extraction_started   [0m [36mext[0m=[35m.txt[0m [36mfile[0m=[35minvoice1.txt[0m [36msize[0m=[35m203[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mdoc_processing_completed      [0m [36mchars[0m=[35m203[0m [36mfile[0m=[35minvoice1.txt[0m [36minjection[0m=[35mFalse[0m [36msuccess[0m=[35mTrue[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mnode_extraction               [0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mextraction_started            [0m [36mdoc_type[0m=[35minvoice[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mllm_call_starting             [0m [36magent[0m=[35mextraction_agent[0m [36mmodel[0m=[35mgoogle/gemini-2.5-flash[0m [36mprompt_length[0m=[35m460[0m [36mprovider[0m=[35mopenrouter[0m
+[2m2026-07-16 12:56:58[0m [[31m[1merror    [0m] [1mopenrouter_call_failed        [0m [36merror[0m=[35m"Error code: 401 - {'error': {'message': 'Missing Authentication header', 'code': 401}}"[0m
+[2m2026-07-16 12:56:58[0m [[31m[1merror    [0m] [1mllm_call_failed               [0m [36merror[0m=[35m"Error code: 401 - {'error': {'message': 'Missing Authentication header', 'code': 401}}"[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mnode_validation               [0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mnode_matching                 [0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mnode_exception_routing        [0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mexception_routing_started     [0m [36minvoice_id[0m=[35mINV-E9B2BC3E[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mexception_routing_completed   [0m [36mexception_count[0m=[35m1[0m [36minvoice_id[0m=[35mINV-E9B2BC3E[0m [36mpriority[0m=[35mHIGH[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mnode_decision                 [0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mdecision_started              [0m [36minvoice_id[0m=[35mINV-E9B2BC3E[0m
+[2m2026-07-16 12:56:58[0m [[33m[1mwarning  [0m] [1mdecision_rejected_no_invoice  [0m [36minvoice_id[0m=[35mINV-E9B2BC3E[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mnode_audit                    [0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1mpipeline_completed            [0m [36mdecision[0m=[35mREJECTED[0m [36minvoice_id[0m=[35mINV-E9B2BC3E[0m
+[2m2026-07-16 12:56:58[0m [[32m[1minfo     [0m] [1maudit_record_saved            [0m [36mdecision[0m=[35mREJECTED[0m [36minvoice_id[0m=[35mINV-E9B2BC3E[0m [36mpath[0m=[35maudit\audit_log.jsonl[0m
+[2m2026-07-16 12:57:35[0m [[32m[1minfo     [0m] [1mpipeline_started              [0m [36minvoice_id[0m=[35mINV-58820E58[0m
+[2m2026-07-16 12:57:35[0m [[32m[1minfo     [0m] [1mnode_document_processing      [0m
+[2m2026-07-16 12:57:35[0m [[32m[1minfo     [0m] [1mdoc_processing_started        [0m [36mdoc_type[0m=[35minvoice[0m [36mfile[0m=[35minvoice1.txt[0m [36msize[0m=[35m203[0m
+[2m2026-07-16 12:57:35[0m [[32m[1minfo     [0m] [1mdocument_extraction_started   [0m [36mext[0m=[35m.txt[0m [36mfile[0m=[35minvoice1.txt[0m [36msize[0m=[35m203[0m
+[2m2026-07-16 12:57:35[0m [[32m[1minfo     [0m] [1mdoc_processing_completed      [0m [36mchars[0m=[35m203[0m [36mfile[0m=[35minvoice1.txt[0m [36minjection[0m=[35mFalse[0m [36msuccess[0m=[35mTrue[0m
+[2m2026-07-16 12:57:35[0m [[32m[1minfo     [0m] [1mnode_extraction               [0m
+[2m2026-07-16 12:57:35[0m [[32m[1minfo     [0m] [1mextraction_started            [0m [36mdoc_type[0m=[35minvoice[0m
+[2m2026-07-16 12:57:35[0m [[32m[1minfo     [0m] [1mllm_call_starting             [0m [36magent[0m=[35mextraction_agent[0m [36mmodel[0m=[35mgoogle/gemini-2.5-flash[0m [36mprompt_length[0m=[35m460[0m [36mprovider[0m=[35mopenrouter[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mllm_call_completed            [0m [36mcompletion_tokens[0m=[35m206[0m [36mcost_usd[0m=[35m0.000181[0m [36mlatency_ms[0m=[35m2201.92[0m [36mmodel[0m=[35mgoogle/gemini-2.5-flash[0m [36mprompt_tokens[0m=[35m987[0m [36mprovider[0m=[35mopenrouter[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mextraction_succeeded          [0m [36mdoc_type[0m=[35minvoice[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mnode_validation               [0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mvalidation_started            [0m [36minvoice_id[0m=[35mINV-58820E58[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mvalidation_completed          [0m [36merror_count[0m=[35m0[0m [36minvoice_id[0m=[35mINV-58820E58[0m [36mis_valid[0m=[35mTrue[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mnode_matching                 [0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mmatching_started              [0m [36mhas_contract[0m=[35mFalse[0m [36mhas_po[0m=[35mFalse[0m [36minvoice_id[0m=[35mINV-58820E58[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mmatching_completed            [0m [36mexceptions[0m=[35m[][0m [36minvoice_id[0m=[35mINV-58820E58[0m [36moverall_match[0m=[35mTrue[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mnode_exception_routing        [0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mexception_routing_started     [0m [36minvoice_id[0m=[35mINV-58820E58[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mexception_routing_completed   [0m [36mexception_count[0m=[35m0[0m [36minvoice_id[0m=[35mINV-58820E58[0m [36mpriority[0m=[35mLOW[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mnode_decision                 [0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mdecision_started              [0m [36minvoice_id[0m=[35mINV-58820E58[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mdecision_stp                  [0m [36minvoice_id[0m=[35mINV-58820E58[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mnode_audit                    [0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1mpipeline_completed            [0m [36mdecision[0m=[35mSTP[0m [36minvoice_id[0m=[35mINV-58820E58[0m
+[2m2026-07-16 12:57:37[0m [[32m[1minfo     [0m] [1maudit_record_saved            [0m [36mdecision[0m=[35mSTP[0m [36minvoice_id[0m=[35mINV-58820E58[0m [36mpath[0m=[35maudit\audit_log.jsonl[0m
