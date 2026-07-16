@@ -1,0 +1,206 @@
+﻿
+============================================================
+  SCENARIO 1: Clean invoice, PO no threshold/approver (total=1000)
+============================================================
+
+[INVOICE]
+  invoice_number='INV-2024-001'  vendor='Acme Supplies Ltd'
+  po_number='PO-1001'  date=2026-07-14  due=2026-08-13
+  currency=Currency.USD  total=1000.0
+  line[0]: qty=10 unit_price=100.0 total_price=1000.0 desc='Widget Type A'
+
+[PO]
+  po_number='PO-1001'  vendor='Acme Supplies Ltd'  status=POStatus.OPEN
+  total=1000.0  approval_required_above=None
+  approved_by=None  approver_name=None
+  po_line[0]: qty_ordered=10 unit_price=100.0 total_price=1000.0
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mvalidation_started            [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mvalidation_completed          [0m [36merror_count[0m=[35m0[0m [36minvoice_id[0m=[35mDBG-001[0m [36mis_valid[0m=[35mTrue[0m
+
+[VALIDATION] is_valid=True
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mmatching_started              [0m [36mhas_contract[0m=[35mFalse[0m [36mhas_po[0m=[35mTrue[0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mmatching_completed            [0m [36mexceptions[0m=[35m[][0m [36minvoice_id[0m=[35mDBG-001[0m [36moverall_match[0m=[35mTrue[0m
+
+[MATCHING] overall_match=True  exceptions=[]
+  [PASS] vendor_match
+  [PASS] po_number_match
+  [PASS] po_status
+  [PASS] total_amount_match  variance=0.00%
+  [PASS] line_item[0]_quantity  variance=0.00%
+  [PASS] line_item[0]_unit_price  variance=0.00%
+  [PASS] contract_available  => No Contract uploaded ù contract matching skipped
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mexception_routing_started     [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mexception_routing_completed   [0m [36mexception_count[0m=[35m0[0m [36minvoice_id[0m=[35mDBG-001[0m [36mpriority[0m=[35mLOW[0m
+
+[EXCEPTIONS] codes=[]  priority=LOW
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mdecision_started              [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mdecision_stp                  [0m [36minvoice_id[0m=[35mDBG-001[0m
+
+[DECISION] DecisionStatus.STP  payment_scheduled=True
+
+  ASSERT: decision should be STP (total 1000 == threshold 1000, not >)
+[32m.[0m
+============================================================
+  SCENARIO 2: total=1001, no PO/contract ù MISSING_APPROVAL expected
+============================================================
+
+[INVOICE]
+  invoice_number='INV-2024-001'  vendor='Acme Supplies Ltd'
+  po_number='PO-1001'  date=2026-07-14  due=2026-08-13
+  currency=Currency.USD  total=1001.0
+  line[0]: qty=10 unit_price=100.1 total_price=1001.0 desc='Widget Type A'
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mvalidation_started            [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mvalidation_completed          [0m [36merror_count[0m=[35m0[0m [36minvoice_id[0m=[35mDBG-001[0m [36mis_valid[0m=[35mTrue[0m
+
+[VALIDATION] is_valid=True
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mmatching_started              [0m [36mhas_contract[0m=[35mFalse[0m [36mhas_po[0m=[35mFalse[0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mmatching_completed            [0m [36mexceptions[0m=[35m['MISSING_APPROVAL'][0m [36minvoice_id[0m=[35mDBG-001[0m [36moverall_match[0m=[35mFalse[0m
+
+[MATCHING] overall_match=False  exceptions=['MISSING_APPROVAL']
+  [PASS] po_available  => No PO uploaded ù PO matching skipped
+  [PASS] contract_available  => No Contract uploaded ù contract matching skipped
+  [FAIL] invoice_approval_threshold  => Invoice total 1001.0 exceeds global approval threshold 1000.0 ù no PO or contract provided to verify approval
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mexception_routing_started     [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mexception_routing_completed   [0m [36mexception_count[0m=[35m1[0m [36minvoice_id[0m=[35mDBG-001[0m [36mpriority[0m=[35mCRITICAL[0m
+
+[EXCEPTIONS] codes=['MISSING_APPROVAL']  priority=CRITICAL
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mdecision_started              [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:30[0m [[32m[1minfo     [0m] [1mdecision_human_review         [0m [36minvoice_id[0m=[35mDBG-001[0m [36mreason_count[0m=[35m2[0m
+
+[DECISION] DecisionStatus.HUMAN_REVIEW  payment_scheduled=False
+  reasons: ['Invoice total 1001.0 exceeds global approval threshold 1000.0 ù no PO or contract provided to verify approval', 'MISSING_APPROVAL']
+
+  ASSERT: decision should be HUMAN_REVIEW with MISSING_APPROVAL
+[32m.[0m
+============================================================
+  SCENARIO 3: Price variance 20% with PO ù PRICE_VARIANCE expected
+============================================================
+
+[INVOICE]
+  invoice_number='INV-2024-002'  vendor='Acme Supplies Ltd'
+  po_number='PO-1001'  date=2026-07-14  due=2026-08-13
+  currency=Currency.USD  total=1200.0
+  line[0]: qty=10 unit_price=120.0 total_price=1200.0 desc='Widget Type A'
+
+[PO]
+  po_number='PO-1001'  vendor='Acme Supplies Ltd'  status=POStatus.OPEN
+  total=1000.0  approval_required_above=500.00
+  approved_by='Jane Doe'  approver_name=None
+  po_line[0]: qty_ordered=10 unit_price=100.0 total_price=1000.0
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mvalidation_started            [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mvalidation_completed          [0m [36merror_count[0m=[35m0[0m [36minvoice_id[0m=[35mDBG-001[0m [36mis_valid[0m=[35mTrue[0m
+
+[VALIDATION] is_valid=True
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mmatching_started              [0m [36mhas_contract[0m=[35mFalse[0m [36mhas_po[0m=[35mTrue[0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mmatching_completed            [0m [36mexceptions[0m=[35m['TOTAL_MISMATCH', 'PRICE_VARIANCE'][0m [36minvoice_id[0m=[35mDBG-001[0m [36moverall_match[0m=[35mFalse[0m
+
+[MATCHING] overall_match=False  exceptions=['TOTAL_MISMATCH', 'PRICE_VARIANCE']
+  [PASS] vendor_match
+  [PASS] po_number_match
+  [PASS] po_status
+  [FAIL] total_amount_match  variance=20.00%  => Total mismatch: invoice=1200.0 vs PO=1000.0 (20.00% variance, threshold=5.0%)
+  [PASS] line_item[0]_quantity  variance=0.00%
+  [FAIL] line_item[0]_unit_price  variance=20.00%  => Price variance on line 0: invoice=120.0 vs PO=100.0 (20.00%)
+  [PASS] approval_threshold  => Approved by Jane Doe
+  [PASS] contract_available  => No Contract uploaded ù contract matching skipped
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mexception_routing_started     [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mexception_routing_completed   [0m [36mexception_count[0m=[35m2[0m [36minvoice_id[0m=[35mDBG-001[0m [36mpriority[0m=[35mNORMAL[0m
+
+[EXCEPTIONS] codes=['TOTAL_MISMATCH', 'PRICE_VARIANCE']  priority=NORMAL
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mdecision_started              [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mdecision_human_review         [0m [36minvoice_id[0m=[35mDBG-001[0m [36mreason_count[0m=[35m4[0m
+
+[DECISION] DecisionStatus.HUMAN_REVIEW  payment_scheduled=False
+  reasons: ['Total mismatch: invoice=1200.0 vs PO=1000.0 (20.00% variance, threshold=5.0%)', 'Price variance on line 0: invoice=120.0 vs PO=100.0 (20.00%)', 'TOTAL_MISMATCH', 'PRICE_VARIANCE']
+
+  ASSERT: decision should be HUMAN_REVIEW
+[32m.[0m
+============================================================
+  SCENARIO 4: Clean invoice with approver ù STP expected
+============================================================
+
+[INVOICE]
+  invoice_number='INV-2024-001'  vendor='Acme Supplies Ltd'
+  po_number='PO-1001'  date=2026-07-14  due=2026-08-13
+  currency=Currency.USD  total=1000.0
+  line[0]: qty=10 unit_price=100.0 total_price=1000.0 desc='Widget Type A'
+
+[PO]
+  po_number='PO-1001'  vendor='Acme Supplies Ltd'  status=POStatus.OPEN
+  total=1000.0  approval_required_above=500.00
+  approved_by='Jane Doe'  approver_name=None
+  po_line[0]: qty_ordered=10 unit_price=100.0 total_price=1000.0
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mvalidation_started            [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mvalidation_completed          [0m [36merror_count[0m=[35m0[0m [36minvoice_id[0m=[35mDBG-001[0m [36mis_valid[0m=[35mTrue[0m
+
+[VALIDATION] is_valid=True
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mmatching_started              [0m [36mhas_contract[0m=[35mFalse[0m [36mhas_po[0m=[35mTrue[0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mmatching_completed            [0m [36mexceptions[0m=[35m[][0m [36minvoice_id[0m=[35mDBG-001[0m [36moverall_match[0m=[35mTrue[0m
+
+[MATCHING] overall_match=True  exceptions=[]
+  [PASS] vendor_match
+  [PASS] po_number_match
+  [PASS] po_status
+  [PASS] total_amount_match  variance=0.00%
+  [PASS] line_item[0]_quantity  variance=0.00%
+  [PASS] line_item[0]_unit_price  variance=0.00%
+  [PASS] approval_threshold  => Approved by Jane Doe
+  [PASS] contract_available  => No Contract uploaded ù contract matching skipped
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mexception_routing_started     [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mexception_routing_completed   [0m [36mexception_count[0m=[35m0[0m [36minvoice_id[0m=[35mDBG-001[0m [36mpriority[0m=[35mLOW[0m
+
+[EXCEPTIONS] codes=[]  priority=LOW
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mdecision_started              [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mdecision_stp                  [0m [36minvoice_id[0m=[35mDBG-001[0m
+
+[DECISION] DecisionStatus.STP  payment_scheduled=True
+
+  ASSERT: decision should be STP
+[32m.[0m
+============================================================
+  SCENARIO 5: Valid invoice but due_date missing ù check INVALID_EXTRACTION false positive
+============================================================
+
+[INVOICE]
+  invoice_number='INV-2024-001'  vendor='Acme Supplies Ltd'
+  po_number='PO-1001'  date=2026-07-14  due=None
+  currency=Currency.USD  total=1000.0
+  line[0]: qty=10 unit_price=100.0 total_price=1000.0 desc='Widget Type A'
+
+[PO]
+  po_number='PO-1001'  vendor='Acme Supplies Ltd'  status=POStatus.OPEN
+  total=1000.0  approval_required_above=500.00
+  approved_by='Jane Doe'  approver_name=None
+  po_line[0]: qty_ordered=10 unit_price=100.0 total_price=1000.0
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mvalidation_started            [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mvalidation_completed          [0m [36merror_count[0m=[35m1[0m [36minvoice_id[0m=[35mDBG-001[0m [36mis_valid[0m=[35mFalse[0m
+
+[VALIDATION] is_valid=False
+  errors: ['Due date is missing']
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mmatching_started              [0m [36mhas_contract[0m=[35mFalse[0m [36mhas_po[0m=[35mTrue[0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mmatching_completed            [0m [36mexceptions[0m=[35m[][0m [36minvoice_id[0m=[35mDBG-001[0m [36moverall_match[0m=[35mTrue[0m
+
+[MATCHING] overall_match=True  exceptions=[]
+  [PASS] vendor_match
+  [PASS] po_number_match
+  [PASS] po_status
+  [PASS] total_amount_match  variance=0.00%
+  [PASS] line_item[0]_quantity  variance=0.00%
+  [PASS] line_item[0]_unit_price  variance=0.00%
+  [PASS] approval_threshold  => Approved by Jane Doe
+  [PASS] contract_available  => No Contract uploaded ù contract matching skipped
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mexception_routing_started     [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mexception_routing_completed   [0m [36mexception_count[0m=[35m1[0m [36minvoice_id[0m=[35mDBG-001[0m [36mpriority[0m=[35mHIGH[0m
+
+[EXCEPTIONS] codes=['INVALID_EXTRACTION']  priority=HIGH
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mdecision_started              [0m [36minvoice_id[0m=[35mDBG-001[0m
+[2m2026-07-14 14:11:31[0m [[32m[1minfo     [0m] [1mdecision_human_review         [0m [36minvoice_id[0m=[35mDBG-001[0m [36mreason_count[0m=[35m2[0m
+
+[DECISION] DecisionStatus.HUMAN_REVIEW  payment_scheduled=False
+  reasons: ['Due date is missing', 'INVALID_EXTRACTION']
+
+  NOTE: due_date missing causes ValidationAgent to add error -> INVALID_EXTRACTION
+  Decision: DecisionStatus.HUMAN_REVIEW  reasons=['Due date is missing', 'INVALID_EXTRACTION']
+[32m.[0mRunning teardown with pytest sessionfinish...
+
+[32m[32m[1m5 passed[0m[32m in 0.05s[0m[0m
