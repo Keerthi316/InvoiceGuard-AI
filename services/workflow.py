@@ -151,7 +151,7 @@ class InvoiceProcessingWorkflow:
         graph.add_node("validation", self._node_validation)
         graph.add_node("matching", self._node_matching)
         graph.add_node("exception_routing", self._node_exception_routing)
-        graph.add_node("decision", self._node_decision)
+        graph.add_node("decision_node", self._node_decision)
         graph.add_node("audit", self._node_audit)
 
         # Set entry point
@@ -162,8 +162,8 @@ class InvoiceProcessingWorkflow:
         graph.add_edge("extraction", "validation")
         graph.add_edge("validation", "matching")
         graph.add_edge("matching", "exception_routing")
-        graph.add_edge("exception_routing", "decision")
-        graph.add_edge("decision", "audit")
+        graph.add_edge("exception_routing", "decision_node")
+        graph.add_edge("decision_node", "audit")
         graph.add_edge("audit", END)
 
         return graph.compile()
