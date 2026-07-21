@@ -1,4 +1,4 @@
-# AP Invoice & Contract Exception Agent
+# InvoiceGaurd AI - AP Invoice & Contract Exception Agent
 
 A production-ready Accounts Payable automation system that uses **LangGraph**, **LLM extraction**, **Pydantic validation**, and a **Streamlit UI** to automate invoice processing, PO matching, contract compliance checking, and exception routing — with a complete audit trail.
 
